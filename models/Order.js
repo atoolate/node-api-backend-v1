@@ -7,6 +7,7 @@ const orderSchema = new Schema({
     shoeConfig: {
         color: String,
         size: Number,
+        engraving: String,
         parts: {
             laces: {
                 color: String,
@@ -36,8 +37,7 @@ const orderSchema = new Schema({
                 color: String,
                 texture: String
             }
-        }
-    },
+        }    },
 
 });
 
