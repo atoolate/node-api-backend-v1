@@ -1,44 +1,25 @@
 // Mongoose
 const mongoose = require('mongoose');
+const { string } = require('three/tsl');
+const { post } = require('../routers/api/v1/orders');
 const Schema = mongoose.Schema;
 const orderSchema = new Schema({
     shoeName: String,
-    user: String,
+    user: {
+        firstName: String,
+        lastName: String,
+        phone: String,
+        email: String,
+        address: String,
+        postalCode: String,
+        city: String,
+    },
     shoeConfig: {
-        color: String,
         size: Number,
-        engraving: String,
-        parts: {
-            laces: {
-                color: String,
-                texture: String
-            },
-            outside_1: {
-                color: String,
-                texture: String
-            },
-            outside_2: {
-                color: String,
-                texture: String
-            },
-            outside_3: {
-                color: String,
-                texture: String
-            },
-            inside: {
-                color: String,
-                texture: String
-            },
-            sole_bottom: {
-                color: String,
-                texture: String
-            },
-            sole_top: {
-                color: String,
-                texture: String
-            }
-        }    },
-
+        initials: String,
+        colors: [String],
+        fabrics: [String],
+    },
 });
 
 // Model
