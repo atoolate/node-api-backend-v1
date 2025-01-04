@@ -32,6 +32,8 @@ const getOrderById = async (req, res) => {
 // POST
 const createOrder = async (req, res) => {
     console.log('Incoming request body:', req.body); // Debug log
+    console.log('Incoming POST data:', req.body);
+
 
     const order = new Order({
         shoeName: req.body.shoeName,

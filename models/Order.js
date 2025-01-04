@@ -1,6 +1,5 @@
 // Mongoose
 const mongoose = require('mongoose');
-const { string } = require('three/tsl');
 const { post } = require('../routers/api/v1/orders');
 
 const Schema = mongoose.Schema;
