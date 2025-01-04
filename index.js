@@ -9,10 +9,8 @@ const mongoose = require('mongoose');
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {})
 .then(() => console.log('MongoDB connected successfully'))
-.catch(err => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit the process with an error code
-});
+.catch(err => console.error('MongoDB connection error:', err));
+
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
@@ -29,6 +27,7 @@ app.get('/', (req, res) => {
 // PORT
 const port = process.env.PORT || 3000;
 
+// PORT
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
-});
+  });
