@@ -15,7 +15,10 @@ const orderSchema = new Schema({
         city: String,
     },
     shoeConfig: {
-        size: Number,
+        size: {
+            type: Number,
+            required: true,
+        },
         initials: String,
         colors: {
             inside: String,
