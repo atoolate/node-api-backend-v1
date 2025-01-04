@@ -31,6 +31,8 @@ const getOrderById = async (req, res) => {
 
 // POST
 const createOrder = async (req, res) => {
+    console.log('Incoming request body:', req.body); // Debug log
+
     const order = new Order({
         shoeName: req.body.shoeName,
         user: req.body.user,
@@ -46,6 +48,7 @@ const createOrder = async (req, res) => {
         res.status(500).send('Error creating order');
     }
 };
+
 
 // PUT
 const updateOrder = async (req, res) => {

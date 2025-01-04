@@ -2,7 +2,9 @@
 const mongoose = require('mongoose');
 const { string } = require('three/tsl');
 const { post } = require('../routers/api/v1/orders');
+
 const Schema = mongoose.Schema;
+
 const orderSchema = new Schema({
     shoeName: String,
     user: {
@@ -15,10 +17,7 @@ const orderSchema = new Schema({
         city: String,
     },
     shoeConfig: {
-        size: {
-            type: Number,
-            required: true,
-        },
+        size: Number,
         initials: String,
         colors: {
             inside: String,
