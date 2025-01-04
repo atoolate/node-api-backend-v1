@@ -5,6 +5,7 @@ const app = express();
 const ordersRouter = require('./routers/api/v1/orders');
 const usersRouter = require('./routers/api/v1/users');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {})
@@ -14,6 +15,9 @@ mongoose.connect(process.env.MONGODB_URI, {})
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
+
+// Enable CORS
+app.use(cors());
 
 // Routes
 app.use('/api/v1/orders', ordersRouter);
