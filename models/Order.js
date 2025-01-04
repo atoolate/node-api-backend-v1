@@ -17,8 +17,24 @@ const orderSchema = new Schema({
     shoeConfig: {
         size: Number,
         initials: String,
-        colors: [String],
-        fabrics: [String],
+        colors: {
+            inside: String,
+            laces: String,
+            outside_1: String,
+            outside_2: String,
+            outside_3: String,
+            sole_bottom: String,
+            sole_top: String,
+        },
+        fabrics: {
+            inside: String,
+            laces: String,
+            outside_1: String,
+            outside_2: String,
+            outside_3: String,
+            sole_bottom: String,
+            sole_top: String,
+        },
     },
 });
 
