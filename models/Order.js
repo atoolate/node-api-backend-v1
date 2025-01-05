@@ -37,6 +37,14 @@ const orderSchema = new Schema({
             sole_top: String,
         },
     },
+    price: {
+        basePrice: Number,
+        customizationFee: Number,
+        shippingCost: Number,
+        totalPrice: Number
+    },
+    status: String,
+    date: Date,
 });
 
 // Model
