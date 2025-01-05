@@ -3,49 +3,64 @@ const passport = require('../passport/passport');
 const jwt = require('jsonwebtoken');
 
 const signup = async (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const email = req.body.email; // Add this line
+    try {
+        const username = req.body.username;
+        const password = req.body.password;
+        const email = req.body.email; // Add this line
 
-    // create a new admin user
-    const admin = new Admin({username: username, email: email}); // Update this line
-    await admin.setPassword(password);
-    await admin.save().then(result => {
+        // create a new admin user
+        const admin = new Admin({username: username, email: email}); // Update this line
+        await admin.setPassword(password);
+        const result = await admin.save();
+        
         const token = jwt.sign({
             uid: result._id,
-            username: result.username
-            
+            username: result.username,
+            email: result.email
         }, 'extrapuntjevoordemoeite');
         
-       res.json({
+        res.json({
             "status": "success",
             "data": {
                 "token": token,
             }
         });
-    }).catch(error => {
+    } catch (error) {
         res.json({
             "status": "error",
             "message": error
         });
-    });
-
+    }
 }
 
 const login = async (req, res, next) => {
-    const admin = await Admin.authenticate()(req.body.username, req.body.password).then(result => {
-        res.json({
+    try {
+        const result = await Admin.authenticate()(req.body.username, req.body.password);
+        if (!result.user) {
+            return res.json({
+                "status": "failed",
+                "message": "Login failed"
+            });
+        }
+
+        let token = jwt.sign({
+            uid: result.user._id,
+            username: result.user.username,
+            email: result.user.email 
+        }, 'extrapuntjevoordemoeite');
+
+        return res.json({
             "status": "success",
             "data": {
-                "message": "Admin logged in",
+                "token": token,
             }
         });
-    }).catch(error => {
+    } catch (error) {
         res.json({
             "status": "error",
             "message": error
         });
-    });
+    }
 }
 
 module.exports = {

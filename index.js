@@ -23,7 +23,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/v1/orders', passport.authenticate('jwt', {session: false}), ordersRouter);
-app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/users', passport.authenticate('jwt', {session: false}), usersRouter);
 app.use('/api/v1/admin', adminRouter);
 
 // Default route
