@@ -5,14 +5,16 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const adminSchema = new Schema({
     username: {
         type: String,
-        unique: true
+    },
+    email: {
+        type: String,
     },
     password: {
         type: String,
     }
 });
 
-adminSchema.plugin(passportLocalMongoose, { usernameField: 'username' }); // Configure usernameField
+adminSchema.plugin(passportLocalMongoose);
 
 const Admin = mongoose.model('Admin', adminSchema);
 

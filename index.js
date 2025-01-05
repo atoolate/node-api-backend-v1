@@ -7,6 +7,7 @@ const usersRouter = require('./routers/api/v1/users');
 const adminRouter = require('./routers/api/v1/admin');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const passport = require('passport');
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {})
@@ -21,7 +22,7 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api/v1/orders', ordersRouter);
+app.use('/api/v1/orders', passport.authenticate('jwt', {session: false}), ordersRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/admin', adminRouter);
 
