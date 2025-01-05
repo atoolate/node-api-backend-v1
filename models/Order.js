@@ -43,7 +43,7 @@ const orderSchema = new Schema({
         totalPrice: { type: Number, required: true }
     },
     status: { type: String, required: true },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, required: true }
 });
 
 // Model
