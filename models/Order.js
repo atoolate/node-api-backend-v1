@@ -1,50 +1,49 @@
 // Mongoose
 const mongoose = require('mongoose');
-const { post } = require('../routers/api/v1/orders');
 
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-    shoeName: String,
+    shoeName: { type: String, required: true },
     user: {
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        address: String,
-        postalCode: String,
-        city: String,
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        phone: { type: String, required: true },
+        email: { type: String, required: true },
+        address: { type: String, required: true },
+        postalCode: { type: String, required: true },
+        city: { type: String, required: true },
     },
     shoeConfig: {
-        size: Number,
-        initials: String,
+        size: { type: Number, required: true },
+        initials: { type: String, required: true },
         colors: {
-            inside: String,
-            laces: String,
-            outside_1: String,
-            outside_2: String,
-            outside_3: String,
-            sole_bottom: String,
-            sole_top: String,
+            inside: { type: String, required: true },
+            laces: { type: String, required: true },
+            outside_1: { type: String, required: true },
+            outside_2: { type: String, required: true },
+            outside_3: { type: String, required: true },
+            sole_bottom: { type: String, required: true },
+            sole_top: { type: String, required: true },
         },
         fabrics: {
-            inside: String,
-            laces: String,
-            outside_1: String,
-            outside_2: String,
-            outside_3: String,
-            sole_bottom: String,
-            sole_top: String,
+            inside: { type: String, required: true },
+            laces: { type: String, required: true },
+            outside_1: { type: String, required: true },
+            outside_2: { type: String, required: true },
+            outside_3: { type: String, required: true },
+            sole_bottom: { type: String, required: true },
+            sole_top: { type: String, required: true },
         },
     },
     price: {
-        basePrice: Number,
-        customizationFee: Number,
-        shippingCost: Number,
-        totalPrice: Number
+        basePrice: { type: Number, required: true },
+        customizationFee: { type: Number, required: true },
+        shippingCost: { type: Number, required: true },
+        totalPrice: { type: Number, required: true }
     },
-    status: String,
-    date: Date,
+    status: { type: String, required: true },
+    date: { type: Date, default: Date.now }
 });
 
 // Model
