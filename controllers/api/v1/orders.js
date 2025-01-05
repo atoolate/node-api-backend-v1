@@ -34,11 +34,16 @@ const createOrder = async (req, res) => {
     console.log('Incoming request body:', req.body); // Debug log
     console.log('Incoming POST data:', req.body);
 
-    const order = new Order({
+    const orderData = {
         shoeName: req.body.shoeName,
         user: req.body.user,
-        shoeConfig: req.body.shoeConfig
-    });
+        shoeConfig: req.body.shoeConfig,
+        price: req.body.price,
+        status: req.body.status,
+        date: req.body.date
+    };
+
+    const order = new Order(orderData);
 
     try {
         await order.save();
