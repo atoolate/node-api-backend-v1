@@ -20,9 +20,8 @@ app.use(cors());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-
 // Routes
-app.use('/api/v1/orders', passport.authenticate('jwt', {session: false}), ordersRouter);
+app.use('/api/v1/orders', ordersRouter); // Remove authentication for ordersRouter
 app.use('/api/v1/users', passport.authenticate('jwt', {session: false}), usersRouter);
 app.use('/api/v1/admin', adminRouter);
 
