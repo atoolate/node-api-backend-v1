@@ -8,6 +8,8 @@ const adminRouter = require('./routers/api/v1/admin');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
+const http = require('http');
+const Primus = require('primus');
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {})
@@ -30,10 +32,19 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// Create HTTP server
+const server = http.createServer(app);
+
+// Set up Primus
+const primus = new Primus(server, { transformer: 'websockets' });
+
 // PORT
 const port = process.env.PORT || 3000;
 
-// PORT
-app.listen(port, () => {
+// Start server
+server.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
-  });
+});
+
+// Export Primus instance for use in other modules
+module.exports.primus = primus;
