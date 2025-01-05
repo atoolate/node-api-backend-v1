@@ -10,6 +10,7 @@ router.get('/:id', adminController.getAdminById);
 
 // POST
 router.post('/signup', authController.signup);
+router.post('/login', authController.login);
 
 // PUT
 router.put('/:id', adminController.updateAdmin);

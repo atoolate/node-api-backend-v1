@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const adminSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
     username: {
         type: String,
         unique: true
@@ -17,7 +12,7 @@ const adminSchema = new Schema({
     }
 });
 
-adminSchema.plugin(passportLocalMongoose);
+adminSchema.plugin(passportLocalMongoose, { usernameField: 'username' }); // Configure usernameField
 
 const Admin = mongoose.model('Admin', adminSchema);
 
