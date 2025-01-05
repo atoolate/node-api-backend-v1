@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const ordersRouter = require('./routers/api/v1/orders');
 const usersRouter = require('./routers/api/v1/users');
+const adminRouter = require('./routers/api/v1/admin');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -22,6 +23,7 @@ app.use(express.json());
 // Routes
 app.use('/api/v1/orders', ordersRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/admin', adminRouter);
 
 // Default route
 app.get('/', (req, res) => {

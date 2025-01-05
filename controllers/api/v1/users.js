@@ -73,8 +73,38 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const loginUser = async (req, res) => {
+    // Your login logic here
+    res.send('Login successful');
+};
+
+const signupUser = async (req, res) => {
+    const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        adress: {
+            street: req.body.adress.street,
+            city: req.body.adress.city,
+            zip: req.body.adress.zip,
+            country: req.body.adress.country
+        }
+    });
+
+    try {
+        await user.save();
+        console.log("User signed up");
+        res.status(201).send(user);
+    } catch (err) {
+        res.status(500).send('Error signing up user');
+    }
+};
+
 exports.getAllUsers = getAllUsers;
 exports.getUserById = getUserById;
 exports.createUser = createUser;
+exports.loginUser = loginUser;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
+exports.signupUser = signupUser;
