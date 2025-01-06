@@ -69,7 +69,7 @@ const updateAdmin = async (req, res) => {
         const updatedAdmin = await Admin.findByIdAndUpdate(req.params.id, updateData, { new: true });
         res.send(updatedAdmin);
     } catch (err) {
-        console.error('Error updating admin:', err);
+        console.error('Error updating admin:', err); // Add detailed error logging
         res.status(500).send('Error updating admin');
     }
 };
