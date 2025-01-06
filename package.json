@@ -20,6 +20,7 @@
         "passport-local-mongoose": "^8.0.0",
         "primus": "^8.0.9",
         "three": "^0.170.0",
-        "vite": "^6.0.1"
+        "vite": "^6.0.1",
+        "ws": "^8.18.0"
     }
 }

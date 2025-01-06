@@ -37,7 +37,14 @@ const getAdminById = async (req, res) => {
 // api/v1/admin/:id
 const updateAdmin = async (req, res) => {
     try {
-        const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const { username, email, password } = req.body;
+        const updateData = {};
+
+        if (username) updateData.username = username;
+        if (email) updateData.email = email;
+        if (password) updateData.password = password;
+
+        const admin = await Admin.findByIdAndUpdate(req.params.id, updateData, { new: true });
         if (!admin) {
             return res.status(404).send('The admin with the given ID was not found');
         }
