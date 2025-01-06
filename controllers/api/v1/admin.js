@@ -1,4 +1,5 @@
 const Admin = require('../../../models/Admin');
+const bcrypt = require('bcrypt');
 
 // GET
 // api/v1/admin
@@ -29,9 +30,7 @@ const getAdminById = async (req, res) => {
     }
 }
 
-
 // POST
-
 
 // PUT
 // api/v1/admin/:id
@@ -48,20 +47,29 @@ const updateAdmin = async (req, res) => {
             return res.status(404).send('The admin with the given ID was not found');
         }
 
+        console.log('Admin found:', admin); // Log the admin object
+
         if (oldPassword && newPassword && confirmNewPassword) {
-            const isMatch = await admin.comparePassword(oldPassword);
-            if (!isMatch) {
+            console.log('Old Password:', oldPassword); // Log the old password
+            console.log('New Password:', newPassword); // Log the new password
+            console.log('Confirm New Password:', confirmNewPassword); // Log the confirm new password
+
+            const isMatch = await admin.authenticate(oldPassword);
+            if (!isMatch.user) {
                 return res.status(400).send('Old password is incorrect');
             }
             if (newPassword !== confirmNewPassword) {
                 return res.status(400).send('New passwords do not match');
             }
-            updateData.password = newPassword;
+
+            await admin.setPassword(newPassword); // Use setPassword method to hash and set the new password
+            await admin.save(); // Save the updated admin with the new password
         }
 
         const updatedAdmin = await Admin.findByIdAndUpdate(req.params.id, updateData, { new: true });
         res.send(updatedAdmin);
     } catch (err) {
+        console.error('Error updating admin:', err);
         res.status(500).send('Error updating admin');
     }
 };
@@ -84,7 +92,6 @@ const deleteAdmin = async (req, res) => {
 module.exports = {
     getAllAdmins,
     getAdminById,
-    
     updateAdmin,
     deleteAdmin
 };
