@@ -1,6 +1,7 @@
 const Admin = require('../models/Admin');
 const passport = require('../passport/passport');
 const jwt = require('jsonwebtoken');
+const secret = process.env.JWT_SECRET;
 
 const signup = async (req, res, next) => {
     try {
@@ -17,7 +18,7 @@ const signup = async (req, res, next) => {
             uid: result._id,
             username: result.username,
             email: result.email
-        }, 'extrapuntjevoordemoeite');
+        }, secret);
         
         res.json({
             "status": "success",
@@ -47,7 +48,7 @@ const login = async (req, res, next) => {
             uid: result.user._id,
             username: result.user.username,
             email: result.user.email 
-        }, 'extrapuntjevoordemoeite');
+        }, secret);
 
         return res.json({
             "status": "success",

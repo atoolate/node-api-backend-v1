@@ -31,6 +31,36 @@ const getAdminById = async (req, res) => {
 
 
 // POST
+// api/v1/admin/signup
+const signup = async (req, res, next) => {
+    try {
+        const username = req.body.username;
+        const password = req.body.password;
+        const email = req.body.email;
+
+        const admin = new Admin({username: username, email: email});
+        await admin.setPassword(password);
+        const result = await admin.save();
+        
+        const token = jwt.sign({
+            uid: result._id,
+            username: result.username,
+            email: result.email
+        }, 'extrapuntjevoordemoeite');
+        
+        res.json({
+            "status": "success",
+            "data": {
+                "token": token,
+            }
+        });
+    } catch (error) {
+        res.json({
+            "status": "error",
+            "message": error
+        });
+    }
+}
 
 
 // PUT
