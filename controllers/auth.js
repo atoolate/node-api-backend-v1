@@ -27,9 +27,10 @@ const signup = async (req, res, next) => {
             }
         });
     } catch (error) {
+        console.error("Signup error:", error); // Add detailed error logging
         res.json({
             "status": "error",
-            "message": error
+            "message": error.message // Update to send error message
         });
     }
 }
@@ -57,9 +58,10 @@ const login = async (req, res, next) => {
             }
         });
     } catch (error) {
+        console.error("Login error:", error); // Add detailed error logging
         res.json({
             "status": "error",
-            "message": error
+            "message": error.message // Update to send error message
         });
     }
 }
