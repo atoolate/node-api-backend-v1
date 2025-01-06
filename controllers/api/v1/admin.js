@@ -50,9 +50,9 @@ const updateAdmin = async (req, res) => {
         console.log('Admin found:', admin); // Log the admin object
 
         if (oldPassword && newPassword && confirmNewPassword) {
-            // console.log('Old Password:', oldPassword); // Log the old password
-            // console.log('New Password:', newPassword); // Log the new password
-            // console.log('Confirm New Password:', confirmNewPassword); // Log the confirm new password
+            console.log('Old Password:', oldPassword); // Log the old password
+            console.log('New Password:', newPassword); // Log the new password
+            console.log('Confirm New Password:', confirmNewPassword); // Log the confirm new password
 
             const isMatch = await admin.authenticate(oldPassword);
             if (!isMatch.user) {
