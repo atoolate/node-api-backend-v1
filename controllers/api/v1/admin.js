@@ -55,7 +55,7 @@ const updateAdmin = async (req, res) => {
             console.log('Confirm New Password:', confirmNewPassword); // Log the confirm new password
 
             const isMatch = await admin.authenticate(oldPassword);
-            if (!isMatch.user) {
+            if (!isMatch) {
                 return res.status(400).send('Old password is incorrect');
             }
             if (newPassword !== confirmNewPassword) {
