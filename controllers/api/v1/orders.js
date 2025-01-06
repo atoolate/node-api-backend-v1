@@ -32,21 +32,21 @@ const getOrderById = async (req, res) => {
 
 // POST
 const createOrder = async (req, res) => {
-    console.log('Incoming request body:', req.body); // Debug log
-    console.log('Incoming POST data:', req.body);
-
-    const orderData = {
-        shoeName: req.body.shoeName,
-        user: req.body.user,
-        shoeConfig: req.body.shoeConfig,
-        price: req.body.price,
-        status: req.body.status,
-        date: req.body.date
-    };
-
-    const order = new Order(orderData);
-
     try {
+        const orderData = req.body;
+        console.log('Incoming request body:', req.body); // Debug log
+        console.log('Incoming POST data:', req.body);
+
+        // Ensure shoeConfig is defined before calling forEach
+        if (orderData.shoeConfig && orderData.shoeConfig.colors) {
+            Object.values(orderData.shoeConfig.colors).forEach(color => {
+                // ...existing code...
+            });
+        } else {
+            throw new Error("Shoe configuration colors are missing");
+        }
+
+        const order = new Order(orderData);
         await order.save();
         console.log("Order created");
         res.status(201).send(order);
@@ -55,9 +55,11 @@ const createOrder = async (req, res) => {
         primus.forEach((spark, id, connections) => {
             spark.write({ event: 'newOrder', data: order });
         });
-    } catch (err) {
-        console.error('Error creating order:', err); // Log the specific error
-        res.status(500).send('Error creating order');
+    } catch (error) {
+        console.error("Error creating order:", error);
+        if (!res.headersSent) {
+            res.status(500).send({ error: error.message });
+        }
     }
 };
 
