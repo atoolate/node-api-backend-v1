@@ -35,36 +35,40 @@ const signup = async (req, res, next) => {
     }
 }
 
-const login = async (req, res, next) => {
-    try {
-        const result = await Admin.authenticate()(req.body.username, req.body.password);
-        if (!result.user) {
-            return res.json({
-                "status": "failed",
-                "message": "Login failed"
+const login = (req, res, next) => {
+    passport.authenticate('local', { session: false }, (err, user, info) => {
+        if (err || !user) {
+            return res.status(400).json({
+                status: 'failed',
+                message: 'Login failed',
+                error: err ? err.message : info.message
             });
         }
 
-        let token = jwt.sign({
-            uid: result.user._id,
-            username: result.user.username,
-            email: result.user.email 
-        }, secret);
-
-        return res.json({
-            "status": "success",
-            "data": {
-                "token": token,
+        req.login(user, { session: false }, (err) => {
+            if (err) {
+                return res.status(400).json({
+                    status: 'failed',
+                    message: 'Login failed',
+                    error: err.message
+                });
             }
+
+            const token = jwt.sign({
+                uid: user._id,
+                username: user.username,
+                email: user.email
+            }, secret);
+
+            return res.json({
+                status: 'success',
+                data: {
+                    token: token,
+                }
+            });
         });
-    } catch (error) {
-        console.error("Login error:", error); // Add detailed error logging
-        res.json({
-            "status": "error",
-            "message": error.message // Update to send error message
-        });
-    }
-}
+    })(req, res);
+};
 
 module.exports = {
     signup,
