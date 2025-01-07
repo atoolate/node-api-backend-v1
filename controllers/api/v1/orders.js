@@ -1,6 +1,4 @@
 const Order = require('../../../models/Order');
-const primus = require('../../../index').primus;
-
 // GET
 // /api/v1/orders
 const getAllOrders = async (req, res) => {
@@ -51,10 +49,7 @@ const createOrder = async (req, res) => {
         console.log("Order created");
         res.status(201).send(order);
 
-        // Emit newOrder event
-        primus.forEach((spark, id, connections) => {
-            spark.write({ event: 'newOrder', data: order });
-        });
+       
     } catch (error) {
         console.error("Error creating order:", error);
         if (!res.headersSent) {
