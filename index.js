@@ -9,6 +9,25 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
 const http = require('http');
+const socketIo = require('socket.io');
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Attach WebSocket server to the HTTP server
+const io = socketIo(server, {
+  cors: {
+    origin: '*',
+  },
+});
+
+// Set io instance on app
+app.set('io', io);
+
+// socket.io
+io.on('connection', (socket) => {
+  console.log(socket.id);
+});
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {})
@@ -31,9 +50,15 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// Create HTTP server
-const server = http.createServer(app);
-
+// Handle server errors
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${port} is already in use. Please use a different port.`);
+    process.exit(1);
+  } else {
+    throw err;
+  }
+});
 
 // PORT
 const port = process.env.PORT || 3000;

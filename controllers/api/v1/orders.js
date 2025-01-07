@@ -47,9 +47,11 @@ const createOrder = async (req, res) => {
         const order = new Order(orderData);
         await order.save();
         console.log("Order created");
-        res.status(201).send(order);
 
-       
+        // Emit WebSocket event for new order
+        req.app.get('io').emit('newOrder', order);
+
+        res.status(201).send(order);
     } catch (error) {
         console.error("Error creating order:", error);
         if (!res.headersSent) {
