@@ -16,7 +16,7 @@ const orderSchema = new Schema({
     },
     shoeConfig: {
         size: { type: Number, required: true },
-        initials: { type: String, required: true },
+        initials: { type: String, required: false },
         colors: {
             inside: { type: String, required: true },
             laces: { type: String, required: true },
