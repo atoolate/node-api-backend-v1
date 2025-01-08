@@ -36,7 +36,7 @@ const getAdminById = async (req, res) => {
 // api/v1/admin/:id
 const updateAdmin = async (req, res) => {
     try {
-        const { username, email, oldPassword, newPassword, confirmNewPassword } = req.body;
+        const { username, email, newPassword, confirmNewPassword } = req.body;
         const updateData = {};
 
         if (username) updateData.username = username;
@@ -49,15 +49,10 @@ const updateAdmin = async (req, res) => {
 
         console.log('Admin found:', admin); // Log the admin object
 
-        if (oldPassword && newPassword && confirmNewPassword) {
-            // console.log('Old Password:', oldPassword); // Log the old password
+        if (newPassword && confirmNewPassword) {
             // console.log('New Password:', newPassword); // Log the new password
             // console.log('Confirm New Password:', confirmNewPassword); // Log the confirm new password
 
-            const isMatch = await admin.authenticate(oldPassword);
-            if (!isMatch) {
-                return res.status(400).send('Old password is incorrect');
-            }
             if (newPassword !== confirmNewPassword) {
                 return res.status(400).send('New passwords do not match');
             }
