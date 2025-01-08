@@ -30,7 +30,7 @@ const getAdminById = async (req, res) => {
     }
 }
 
-// POST
+
 
 // PUT
 // api/v1/admin/:id
