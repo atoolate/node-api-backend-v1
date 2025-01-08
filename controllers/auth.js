@@ -70,30 +70,10 @@ const login = (req, res, next) => {
     })(req, res);
 };
 
-// api/v1/admin/compare-password
-const compareOldPassword = async (req, res) => {
-    try {
-        const { adminId, oldPassword } = req.body;
-        const admin = await Admin.findById(adminId);
-        if (!admin) {
-            return res.status(404).send('The admin with the given ID was not found');
-        }
-
-        const isMatch = await admin.authenticate(oldPassword);
-        if (isMatch) {
-            res.json({ match: true });
-        } else {
-            res.json({ match: false });
-        }
-    } catch (err) {
-        res.status(500).send('Error comparing password');
-    }
-};
 
 module.exports = {
     signup,
-    login,
-    compareOldPassword
+    login
 };
 
 

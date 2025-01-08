@@ -12,7 +12,6 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), adminContro
 // POST
 // router.post('/signup', authController.signup);
 router.post('/login', authController.login);
-router.post('/compare-password', authController.compareOldPassword);
 
 // PUT
 router.put('/:id', passport.authenticate('jwt', { session: false }), adminController.updateAdmin);
