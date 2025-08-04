@@ -1,5 +1,3 @@
-# node-api-backend-v1
+# Nodejs backend API for 3D Sneaker Store
 
-# re-upload in new repositry for deployment
-
-# Dev progress comitted in shared repo https://github.com/kweozz/three.js-sneaker-store
+# Frontend Threejs + Vuejs development progress comitted in shared repo https://github.com/kweozz/three.js-sneaker-store
